@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<section>
+
+		<div class="container-fluid" style="padding-top: 70px; padding-bottom: 10px; height: 100vh; overflow: hidden">
+
+			<div class="row h-100">
+			
+			<!-- Left Sidebar: Categories -->
+
+				<div class="col-md-2 h-100" style="overflow-y: auto;">
+
+					<div class="card shadow-sm p-0 mb-5 bg-body-tertiary rounded">
+
+						<div class="card-body">
+
+							<div class="list-group">
+
+								<a th:href="@{/products}" class="text-center fs-4 list-group-item list-group-item-action text-decoration-none active">Categories</a>
+
+								<a class="list-group-item list-group-item-action"
+									aria-current="true" th:each="cat : ${categories}" th:classappend="${paramValue == cat.name} ? 'my-active' : '' " th:href="@{'/products?category='+${cat.name.replace('&', '%26')}}"
+									th:text="${cat.name}">Categories</a>
+
+								<!-- <ul class="list-group">
+						<li th:each="cat : ${categories}" th:text="${cat.name}"
+							class="list-group-item" aria-current="true"></li>
+
+					</ul> -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-10 h-100" style="overflow-y: auto;">
+
+					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+
+						<div class="card-body">
+
+							<p class="fs-3 text-center">Products</p>
+
+							<div class="row">
+							
+							<th:block th:if="${products.size > 0}">
+
+								<div class="col-md-3 mb-3" th:each="p : ${products}">
+
+									<div class="card card1">
+
+										<div class="card-body">
+
+											<img src="" th:src="@{'/images/product/' + ${p.image}}"
+												alt="img" width="100%" height="150px" style="object-fit: contain; border-radius: 8px;" />
+
+											<p class="fs-5 text-center" th:text="${p.title}">Laptop</p>
+
+											<div class="row text-center">
+
+												<p class="fs-6 fw-bold">
+													&#8377; [[${p.discountPrice}]] <span class="fs-6 text-success">[[${p.discount
+														+ '% off'}]]</span>
+												</p>
+
+												<a href="" th:href="@{'/product/' + ${p.id}}"
+													class="btn btn-primary col-md-6 offset-md-3">View
+													Details</a>
+
+											</div>
+
+										</div>
+
+									</div>
+
+								</div>
+								
+								</th:block>
+								
+								<th:block th:unless="${products.size > 0}">
+								
+								<p class="fs-4 text-center text-danger mt-4 ">Product not available</p>
+								
+								
+								</th:block>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+</body>
+</html>

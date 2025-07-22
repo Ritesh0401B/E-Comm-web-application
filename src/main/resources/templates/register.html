@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+
+	<section>
+
+		<div class="container my-5 py-4">
+			<div class="row card2 col-md-10 offset-md-1">
+
+				<div class="col-md-6 mt-4">
+					<img class="d-block mx-auto"
+						style="width: 500px; mix-blend-mode: multiply;"
+						src="/images/logo.jpeg" alt="" />
+				</div>
+
+				<div class="col-md-6">
+
+					<div class="my-card  p-2 mt-1">
+
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert "
+							role="alert">
+							<p th:text="${session.message.content}"></p>
+
+
+						</div>
+
+
+
+						<h1 class="text-center">Register Here !!</h1>
+
+						<form th:action="@{/process-register}" method="post"
+							enctype="multipart/form-data">
+
+							<div class="row">
+
+								<!-- name field -->
+
+								<div class="col">
+									<div class="form-group mb-1">
+
+										<label for="name_field" class="form-label">Name</label> <input
+											name="name" type="text" class="form-control" id="name_field"
+											aria-describedby="emailHelp" placeholder="Enter here"
+											required />
+
+									</div>
+								</div>
+
+								<!-- Phone Number field -->
+
+								<div class="col">
+									<div class="form-group mb-1">
+
+										<label for="phone_number_field" class="form-label">Phone
+											Number</label> <input name="mobileNumber" type="number"
+											class="form-control" id="phone_number_field"
+											aria-describedby="emailHelp" placeholder="Enter here"
+											required />
+
+									</div>
+								</div>
+							</div>
+
+
+
+							<!-- Email field -->
+
+							<div class="form-group mb-1">
+
+								<label for="email_field" class="form-label">Email</label> <input
+									name="email" type="email" class="form-control" id="email_field"
+									aria-describedby="emailHelp" placeholder="Enter here" required />
+
+							</div>
+
+							<div class="row">
+
+								<!-- Address field -->
+
+								<div class="col">
+									<div class="form-group mb-1">
+
+										<label for="name_field" class="form-label">Address</label> <input
+											name="address" type="text" class="form-control"
+											id="name_field" aria-describedby="emailHelp"
+											placeholder="Enter here" required />
+
+									</div>
+								</div>
+
+								<!-- City field -->
+
+								<div class="col">
+									<div class="form-group mb-1">
+
+										<label for="city_field" class="form-label">City</label> <input
+											name="city" type="text" class="form-control" id="city_field"
+											aria-describedby="emailHelp" placeholder="Enter here"
+											required />
+
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+
+								<!-- Address field -->
+
+								<div class="col">
+									<div class="form-group mb-1">
+
+										<label for="state_field" class="form-label">State</label> <input
+											name="state" type="text" class="form-control" id="name_field"
+											aria-describedby="emailHelp" placeholder="Enter here"
+											required />
+
+									</div>
+								</div>
+
+								<!-- City field -->
+
+								<div class="col">
+									<div class="form-group mb-1">
+
+										<label for="pincode_field" class="form-label">pincode</label>
+										<input name="pincode" type="number" class="form-control"
+											id="pincode_field" aria-describedby="emailHelp"
+											placeholder="Enter here" required />
+
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Password field -->
+
+							<div class="row">
+
+								<div class="col form-group mb-2">
+
+									<label for="password_field" class="form-label">Password</label>
+
+									<div style="position: relative;">
+
+										<input name="password" type="password" class="form-control"
+											id="signupPassword" aria-describedby="emailHelp"
+											placeholder="Enter here" required /> <i
+											class="fa-regular fa-eye-slash" id="toggleSignup"
+											style="position: absolute; right: 8px; top: 55%; transform: translateY(-50%); cursor: pointer;"></i>
+
+
+									</div>
+
+									<div id="validationServer03Feedback" class="invalid-feedback"></div>
+
+								</div>
+
+								<!-- confirm password -->
+
+								<div class="col form-group mb-2">
+
+									<label for="password_field" class="form-label">Confirm
+										Password</label>
+
+									<div style="position: relative;">
+
+										<input name="confirmPassword" type="password"
+											class="form-control" id="signupConfirmPassword"
+											aria-describedby="emailHelp" placeholder="Enter here"
+											required /> <i class="fa-regular fa-eye-slash"
+											id="toggleConfirmSignup"
+											style="position: absolute; right: 8px; top: 55%; transform: translateY(-50%); cursor: pointer;"></i>
+
+
+									</div>
+
+									<div id="validationServer03Feedback" class="invalid-feedback"></div>
+
+
+
+								</div>
+							</div>
+
+							<!-- Image field -->
+
+							<div class="mb-3 col">
+
+								<label for="img-field">Image</label> <input type="file"
+									name="image" class="form-control" id="img-field" />
+
+							</div>
+
+							<!-- Text field -->
+
+							<!-- <div class="form-group mb-2">
+
+								<textarea name="about" id=""
+									placeholder="Enter something yourself" cols="" rows="5"
+									class="form-control"></textarea>
+
+							</div> -->
+
+							<!-- terms and conditions agreement -->
+
+							<div
+								class="form-group form-check d-flex justify-content-center mb-1">
+
+								<input type="checkbox" name="agreement" class="form-check-input"
+									id="agreement" /> <label for="agreement">Accept terms
+									and Conditions</label>
+
+							</div>
+
+
+							<!-- button field -->
+
+							<div class="container text-center">
+
+								<button type="submit" class="btn bg-primary text-white">Submit</button>
+
+								<button type="reset" class="btn btn-warning text-white">Reset</button>
+
+							</div>
+
+						</form>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+	</section>
+
+</body>
+</html>

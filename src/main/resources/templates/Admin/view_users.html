@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+
+	<section>
+
+		<div class="container my-5 p-3">
+			<div class="row col-md-10 offset-md-1">
+				<div class="card card-sh">
+					<div class="card-header text-center fs-4">
+						Product Details
+
+						<div th:if="${message}" th:classappend="${message.type}"
+							class="alert col-md-8 offset-md-2 mb-0" role="alert">
+							<p th:text="${message.content}"></p>
+
+						</div>
+					</div>
+
+
+
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Name</th>
+										<th scope="col">Mobile Number</th>
+										<th scope="col">Email</th>
+										<th scope="col">Address</th>
+										<th scope="col">city</th>
+										<th scope="col">State</th>
+										<th scope="col">Pincode</th>
+										<th scope="col">Role</th>
+										<th scope="col">Image</th>
+										<th scope="col">IsEnabled</th>
+										<th scope="col">Action</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="u : ${users}">
+
+										<th scope="row" th:text="${u.id}">1</th>
+
+										<td th:text="${u.name}">Mark</td>
+
+										<td th:text="${u.mobileNumber}">Otto</td>
+
+										<td th:text="${u.email}">Otto</td>
+
+										<td th:text="${u.address}">@mdo</td>
+
+										<td th:text="${u.city}">@mdo</td>
+
+										<td th:text="${u.state}">@mdo</td>
+
+										<td th:text="${u.pincode}"></td>
+
+										<td th:text="${u.role}">@mdo</td>
+
+										<td><img
+											th:src="@{'/images/user_profile/' + ${u.profileImage}}"
+											alt="" width="80px" height="80px" /><br /> <span
+											th:text="${u.profileImage}"></span></td>
+
+										<td th:text="${u.isEnable}">@mdo</td>
+
+										<td><div>
+												<a th:href="@{'/admin/update-status?status=true&id='+${u.id}}" class="btn btn-sm btn-primary">Active</a>
+											</div>
+
+											<div>
+												<a th:href="@{'/admin/update-status?status=false&id='+${u.id}}" class="btn btn-sm btn-danger">Inactive</a>
+											</div></td>
+
+
+
+										<td>
+
+											<div class="d-flex gap-2 align-items-center">
+
+												<a href="" type="submit" class="btn btn-0"> <i
+													class="fa-solid fa-pen-to-square text-primary"></i>
+												</a>
+
+												<!-- <form th:action="@{/admin/delete-category/{id}(id=${c.id})}"
+													method="post">
+
+													<button th:onclick="|deleteContact(${c.cId})|"
+														class="btn btn-0">
+														<i class="fa-solid fa-trash text-danger"></i>
+													</button>
+
+												</form> -->
+
+												<a th:onclick="|deleteUser(${u.id})|" class="btn btn-0">
+													<i class="fa-solid fa-trash text-danger"></i>
+												</a>
+
+											</div>
+
+
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+		
+		function deleteUser(id){
+		
+		 Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this product!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/admin/delete-user/" + id;
+      }else{
+         Swal.fire("Cancelled", "Your product is safe !!", "info");
+
+      }
+    });
+		
+		};
+		
+		</script>
+
+	</section>
+
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+.navbar {
+	background: #0066ff;
+}
+
+.navbar .nav-link, .navbar .navbar-brand {
+	color: white !important;
+}
+
+.main-content {
+	margin-top: 70px; /* navbar height se thoda zyada */
+}
+
+.category {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: #e2e2e2;
+	padding: 2px;
+	border-radius: 10px;
+}
+
+.card1 {
+	background: linear-gradient(135deg, #f8f9fa, #ffffff);
+	border-radius: 20px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+	border: 1px solid #dee2e6;
+	cursor: pointer;
+}
+
+.card1:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	background: linear-gradient(135deg, #ffffff, #e2e6ea);
+}
+
+.card2 {
+	background: linear-gradient(135deg, #ffffff, #e2e6ea);
+	border-radius: 20px;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+	border: 1px solid #dee2e6;
+}
+
+.card3 {
+	background: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
+	border: 1px solid #dee2e6;
+}
+
+.card-sh {
+	margin-top: 50px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+
+/* product.html */
+.my-active {
+	color: black !important;
+	font-weight: bold;
+}
+
+/* Smooth dropdown animation */
+.dropdown-menu-animated {
+	opacity: 0;
+	transform: translateY(10px);
+	transition: all 0.3s ease-in-out;
+	display: block !important;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.dropdown-menu.show.dropdown-menu-animated {
+	opacity: 1;
+	transform: translateY(0px);
+	visibility: visible;
+	pointer-events: auto;
+}
+
+
+.cart{
+	/* justify-content: center;
+	align-items: center; */
+	padding-right:15px;
+	/*padding-top:7px; */
+	margin: 8px;
+}
+
+.pn{
+	border-radius: 20px #e2e2e2;
+	border: 20px;
+}
+
+

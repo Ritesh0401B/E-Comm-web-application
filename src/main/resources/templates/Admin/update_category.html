@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<section>
+
+		<div class= "container mt-3 mb-5 pt-2 pb-2">
+
+			<div class="row">
+
+				<div class="col-md-5 mx-auto">
+
+					<div class="card card-sh">
+
+						<div class="card-header text-center fs-4">Update Category</div>
+
+						<div class="card-body">
+
+
+							<form th:action="@{/admin/process-update-category}" method="post" th:object="${category}"
+								enctype="multipart/form-data">
+								
+								
+								<input type="hidden" th:value="${category.id}" name="id" />
+
+								<!-- Category field -->
+
+								<div class="mb-3">
+
+									<label for="category-field">Enter Category</label> <input
+										type="text" name="name" class="form-control" th:value="${category.name}"
+										id="category-field" />
+
+								</div>
+
+								<div class="mb-3">
+
+									<label for="">Status</label>
+
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="isActive"
+											value="true" id="radioDefault1" th:checked="${category.isActive==true}"> <label
+											class="form-check-label" for="radioDefault1"> Active
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="isActive"
+											value="false" id="radioDefault2" th:checked="${category.isActive==false}"> <label
+											class="form-check-label" for="radioDefault2">
+											Inactive </label>
+									</div>
+
+								</div>
+								
+								<!-- contact image -->
+
+
+								<div class="container text-center">
+
+									<img style="width: 200px; height: 200px;" class="img-fluid my_profile_picture" src="" th:src="@{'/images/category/' + ${category.imageName}}" alt="" />
+
+								</div>
+
+								<!-- Image field -->
+
+								<div class="mb-3 col">
+
+									<label for="img-field">Image</label> <input type="file"
+										name="image" class="form-control" id="img-field" />
+
+								</div>
+
+								<button class="btn btn-primary col-md-12">Add</button>
+
+							</form>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<section>
+
+		<div class="container col-md-5 offset-md-3.5 card-sh p-4"
+			style="margin-top: 70px; margin-bottom: 55px;">
+
+			<th:block th:if="${#lists.isEmpty(cart)}">
+				<p class="text-center text-danger fs-4">Cart is empty</p>
+			</th:block>
+
+			<th:block th:unless="${#lists.isEmpty(cart)}">
+
+				<div>
+					<div class="total">
+						<p class="fs-5 fw-bold">SubTotal : &nbsp; &#8377;
+							[[${subTotal}]]</p>
+					</div>
+
+						<th:block th:if="${countCart > 1}">
+
+							<a th:href="@{/user/orders}" class="btn btn-warning rounded-pill px-5">Proceed
+								to Buy([[${countCart}]] item)</a>
+
+						</th:block>
+						
+						<th:block th:unless="${countCart > 1}">
+
+							<a th:href="@{/user/orders}" class="btn btn-warning rounded-pill px-5">Proceed
+								to Buy([[${countCart}]] item)</a>
+
+						</th:block>
+
+
+					<hr />
+
+				</div>
+
+				<div class="card p-3 m-2" th:each="c : ${cart}">
+
+					<div class="row">
+
+						<div class="col col-md-4 ">
+							<img th:src="'/images/product/' + ${c.product.image}" alt=""
+								width="150px" />
+						</div>
+
+						<div class="col">
+
+							<p class="fs-3 m-0">[[${c.product.title}]]</p>
+
+							<p class="">[[${c.product.description}]]</p>
+
+							<p class="fs-5 fw-bold">[[₹ + ${c.product.discountPrice}]]
+								&times; [[${c.quantity}]] =
+								[[${#numbers.formatDecimal(c.totalPrice, 1, 2,)}]]</p>
+
+						</div>
+					</div>
+
+					<!-- Second row -->
+
+					<div class="row mt-2">
+
+						<!-- Product +/- module -->
+
+						<div class="col">
+
+							<form th:action="@{/user/update-cart}" method="post">
+
+								<input type="hidden" name="productId" th:value="${c.product.id}" />
+
+								<input type="hidden" name="cid" th:value="${c.id}" />
+
+								<div
+									class="d-inline-flex align-items-center border rounded-pill overflow-hidden shadow-sm"
+									style="max-width: 180px;">
+									<button class="btn btn-sm  px-3" type="submit" name="action"
+										value="decrease">−</button>
+
+									<input type="number" name="quantity"
+										class="form-control text-center border-0"
+										th:value="${c.quantity}" min="0" max="10" readonly
+										style="width: 60px;">
+
+									<button class="btn btn-sm btn-outline px-3" type="submit"
+										name="action" value="increase">+</button>
+								</div>
+							</form>
+
+
+						</div>
+
+						<!--  Product delete module  -->
+
+						<div class="col text-center">
+							<a onclick="" th:href="@{'/user/delete-cart?cid=' + ${c.id} + '&q=' + ${c.quantity} + '&pid=' + ${c.product.id}}" class="btn btn-0 bg-danger text-white"> Delete</a>
+						</div>
+
+						<div class="col"></div>
+
+
+					</div>
+
+				</div>
+
+
+
+			</th:block>
+
+		</div>
+
+	</section>
+
+</body>
+</html>

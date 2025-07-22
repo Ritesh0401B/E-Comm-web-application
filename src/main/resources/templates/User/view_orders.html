@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<section>
+		<div class="container card-sh col-md-5 offset-md-3.5 p-4"
+			style="margin-top: 70px; margin-bottom: 55px;">
+
+			<th:block th:if="${#lists.isEmpty(orders)}">
+				<p class="fs-3 text-center text-danger">Order not Available</p>
+			</th:block>
+
+			<th:block th:unless="${#lists.isEmpty(orders)}">
+
+				<h4 class="fw-3 text-center pb-2">My Orders</h4>
+
+				<hr />
+
+				<div th:each="o : ${orders}" class="m-2">
+					<div th:each="op : ${o.orderedProducts}">
+
+						<a th:href="@{'/user/order-details?orderId=' + ${o.id} + '&productId=' + ${op.id}}"
+							class="text-decoration-none text-dark">
+
+							<div class="row align-items-center flex-column flex-md-row">
+
+								<!-- Order Image -->
+								<div class="col col-md-2 text-center">
+
+									<img th:src="'/images/product/' + ${op.product.image}" alt=""
+										height="70px" />
+
+
+								</div>
+
+								<div class="col col-md-8 ms-3">
+
+									<p class="fs-3 m-0"></p>
+
+									<p class="mb-1">Delivery expected soon</p>
+
+									<p class="text-muted"
+										th:text="${#strings.abbreviate(op.product.description, 45)}"></p>
+
+									<!-- <p class="fs-5 text-muted">
+									<span
+										th:text="${#temporals.format(o.orderDate, 'dd-MM-yyyy hh:mm')}"></span>
+								</p> -->
+
+								</div>
+
+
+								<div class="col-md-1 d-flex justify-content-center">
+
+									<span class="fs-3">&gt;</span>
+
+
+								</div>
+
+							</div>
+
+							<hr />
+						</a>
+
+					</div>
+
+				</div>
+
+
+			</th:block>
+
+		</div>
+	</section>
+
+</body>
+</html>

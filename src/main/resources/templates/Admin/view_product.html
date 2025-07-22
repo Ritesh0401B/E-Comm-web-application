@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<section>
+
+		<div class="container my-5 p-3">
+			<div class="row col-md-10 offset-md-1">
+				<div class="card card-sh">
+					<div class="card-header text-center fs-4">Product Details</div>
+
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Title</th>
+										<th scope="col">Description</th>
+										<th scope="col">Active Status</th>
+										<th scope="col">Category</th>
+										<th scope="col">Price</th>
+										<th scope="col">Discount(%)</th>
+										<th scope="col">Discount Price</th>
+										<th scope="col">Stock</th>
+										<th scope="col">Image</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="p : ${products}">
+
+										<th scope="row" th:text="${p.id}">1</th>
+
+										<td th:text="${p.title}">Mark</td>
+
+										<td th:text="${p.description}">Otto</td>
+										
+										<td th:text="${p.activeProduct}">Otto</td>
+
+										<td th:text="${p.category}">@mdo</td>
+
+										<td th:text="${p.price}">@mdo</td>
+										
+										<td th:text="${p.discount + '%'}">@mdo</td>
+
+										<td th:text="${p.discountPrice}"></td>
+
+										<td th:text="${p.stock}">@mdo</td>
+
+										<td><img th:src="@{'/images/product/' + ${p.image}}"
+											alt="" width="80px" height="80px" /><br /> <span
+											th:text="${p.image}"></span></td>
+
+										<td>
+
+											<div class="d-flex gap-2 align-items-center">
+
+												<a th:href="@{'/admin/update-product/' + ${p.id}}"
+													type="submit" class="btn btn-0"> <i
+													class="fa-solid fa-pen-to-square text-primary"></i>
+												</a>
+
+												<!-- <form th:action="@{/admin/delete-category/{id}(id=${c.id})}"
+													method="post">
+
+													<button th:onclick="|deleteContact(${c.cId})|" class="btn btn-0">
+														<i class="fa-solid fa-trash text-danger"></i>
+													</button>
+
+												</form> -->
+
+												<a th:onclick="|deleteProduct(${p.id})|" class="btn btn-0">
+													<i class="fa-solid fa-trash text-danger"></i>
+												</a>
+
+											</div>
+
+
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+		
+		function deleteProduct(id){
+		
+		 Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this product!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/admin/delete-product/" + id;
+      }else{
+         Swal.fire("Cancelled", "Your product is safe !!", "info");
+
+      }
+    });
+		
+		};
+		
+		</script>
+
+	</section>
+
+</body>
+</html>

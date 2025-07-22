@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<section>
+
+		<div class="container card-sh p-4" style="margin-top: 70px;">
+
+			<div class="col-md-12 p-5" th:each="p : ${product}">
+
+				<div class="row">
+
+					<div class="col-md-4 text-end">
+
+						<img src="" th:src="@{'/images/product/' + ${p.image}}" alt="img"
+							width="330px" height="400px" />
+
+
+
+					</div>
+
+					<div class="col-md-6">
+
+						<!-- <div th:if="${message}" th:classappend="${message.type}"
+							class="alert col-md-8 offset-md-2 mb-0" role="alert">
+							<p th:text="${message.content}"></p>
+
+						</div> -->
+
+
+						<div aria-live="polite" aria-atomic="true"
+							class="position-relative">
+							<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+								<div th:if="${message != null}" class="toast show" role="alert"
+									aria-live="assertive" aria-atomic="true">
+									<div class="toast-header">
+										<strong class="me-auto">Notification</strong> <small>Just
+											now</small>
+										<button type="button" class="btn-close"
+											data-bs-dismiss="toast" aria-label="Close"></button>
+									</div>
+									<div class="toast-body" th:text="${message.content}"></div>
+								</div>
+
+							</div>
+						</div>
+
+
+
+						<p class="fs-3">[[${p.title}]]</p>
+
+						<p>
+							<span class="fw-bold">Description</span><br />
+							[[${p.description}]]
+						</p>
+
+						<p>
+							<span class="fw-bold">Product Details: </span><br /> Status: <span
+								class="badge bg-success" th:if="${product.stock > 0}"
+								th:text="'Available'"></span><span class="badge bg-warning"
+								th:if="${product.stock == 0}" th:text="'Out Of Stock'"></span><br />Category
+							: [[${p.category}]] <br />Polocy : 7 Days Replacement/Return
+						</p>
+
+						<p class="fs-5 fw-bold">
+							Price : &nbsp; &nbsp; <i class="fas fa-rupee-sign"></i>
+							[[${p.discountPrice}]] <span
+								class="fs-6 text-decoration-line-through text-secondary">[[${p.price}]]</span><span
+								class="fs-6 text-success"> [[${p.discount + '% off'}]]</span>
+						</p>
+
+						<div class="row">
+
+							<div class="col-md-4 text-success text-center p-2">
+
+								<i class="fas fa-money-bill-wave fa-2x"></i>
+								<p>Case On Delivery</p>
+
+							</div>
+
+							<div class="col-md-4 text-danger text-center p-2">
+
+								<i class="fas fa-undo-alt fa-2x"></i>
+								<p>Return Available</p>
+
+							</div>
+
+							<div class="col-md-4 text-primary text-center p-2">
+
+								<i class="fas fa-truck-moving fa-2x"></i>
+								<p>Free Shipping</p>
+
+							</div>
+
+						</div>
+
+						<th:block th:if="${p.stock > 0}">
+
+							<th:block th:if="${user==null}">
+								<a th:href="@{/signin}" class="btn btn-danger col-md-12">Add
+									To Cart</a>
+							</th:block>
+
+							<th:block th:unless="${user==null}">
+								<a
+									th:href="@{'/user/add-cart?pid=' + ${p.id} + '&uid=' + ${user.id}}"
+									class="btn btn-danger col-md-12">Add To Cart</a>
+							</th:block>
+
+						</th:block>
+
+						<th:block th:if="${p.stock == 0}">
+							<a href="" class="btn btn-warning col-md-12">Out Of Stock</a>
+						</th:block>
+
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+</body>
+</html>

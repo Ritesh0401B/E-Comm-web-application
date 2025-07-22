@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+
+	<section>
+
+		<div class="container my-5 py-3">
+
+			<div th:if="${session.message}"
+				th:classappend="${session.message.type}"
+				class="alert col-md-8 offset-md-2 mb-0" role="alert">
+				<p th:text="${session.message.content}"></p>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-6 offset-md-3">
+
+					<div class="card card-sh">
+
+						<div class="card-header text-center fs-4">Update Product</div>
+
+						<div class="card-body">
+
+							<form th:action="@{/admin/process-update-product}" method="post"
+								enctype="multipart/form-data" th:object="${product}">
+
+								<input type="hidden" th:value="${product.id}" name="id" />
+
+								<!-- Title field -->
+
+								<div class="mb-3">
+
+									<label for="title-field">Enter Title</label> <input type="text"
+										name="title" class="form-control" th:value="${product.title}"
+										id="title-field" />
+
+								</div>
+
+								<!-- Description field -->
+
+								<div class="mb-3">
+
+									<label for="description-field">Enter Description</label>
+									<textarea name="description" id="description-field" rows="3"
+										cols="" class="form-control" th:text="${product.description}"></textarea>
+
+								</div>
+								
+								<div class="row">
+								
+								<div class="mb-3 col">
+
+										<label for="">Status</label>
+
+										<div class="form-check">
+											<input class="form-check-input" type="radio"
+												name="activeProduct" value="true" id="radioDefault1" checked>
+											<label class="form-check-label" for="radioDefault1">
+												Active </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio"
+												name="activeProduct" value="false" id="radioDefault2">
+											<label class="form-check-label" for="radioDefault2">
+												Inactive </label>
+										</div>
+
+									</div>
+
+								<!-- Category field -->
+
+								<div class="mb-3 col">
+
+									<label for="category-field">Enter Category</label> <select
+										name="category" id="category-field"
+										th:value="${product.category}" class="form-control">
+
+										<option value="">[[${product.category}]]</option>
+										<option th:each="cat : ${categories}" th:value="${cat.name}"
+											th:text="${cat.name}"></option>
+
+									</select>
+
+								</div>
+								
+								</div>
+
+								<!-- Price field -->
+
+								<div class="mb-3">
+
+									<label for="price-field">Enter Price</label> <input
+										type="number" name="price" class="form-control"
+										id="price-field" th:value="${product.price}" />
+
+								</div>
+
+								<!--  DISCOUNT----------  -->
+
+								<div class="row">
+
+									<!-- Stock field -->
+
+									<div class="mb-3 col">
+
+										<label for="stock-field">Discount(%)</label> <input
+											type="number" name="discount" class="form-control"
+											id="stock-field" th:value="${product.discount}" />
+
+									</div>
+
+									<!-- Image field -->
+
+									<div class="mb-3 col">
+
+										<label for="img-field">Discount Price</label> <input
+											type="number" name="discountPrice" class="form-control"
+											id="img-field" th:value="${product.discountPrice}" />
+
+									</div>
+
+								</div>
+
+								<!-- STOCKS ---------- -->
+
+								<div class="row">
+
+									<!-- Stock field -->
+
+									<div class="mb-3 col">
+
+										<label for="stock-field">Stock</label> <input type="text"
+											name="stock" class="form-control" id="stock-field"
+											th:value="${product.stock}" />
+
+									</div>
+
+									<!-- Image field -->
+
+									<div class="mb-3 col">
+
+										<label for="img-field">Image</label> <input type="file"
+											name="productImage" class="form-control" id="img-field" />
+
+									</div>
+
+								</div>
+
+								<!-- Product image -->
+
+
+								<div class="container text-center">
+
+									<img style="width: 200px; height: 200px;"
+										class="img-fluid my_profile_picture" src=""
+										th:src="@{'/images/product/' + ${product.image}}" alt="" />
+
+								</div>
+
+								<button class="btn btn-primary col-md-12 my-2">Update</button>
+
+							</form>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+</body>
+</html>

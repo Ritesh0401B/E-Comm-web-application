@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+
+		<div class="container mt-5 p-5">
+			<form action="/user/save-order" method="post" id="orders" novalidate>
+				<div class="row">
+
+					<div class="col-md-6 px-4 m-0">
+
+						<p class="text-center fs-4">Select Address</p>
+						<hr>
+
+						<th:block th:each="ad : ${address}">
+
+							<div class="form-check border rounded px-5 py-3 m-3 offset-md-2">
+								<div class="row">
+									<div class="col-md-10">
+										<input class="form-check-input" type="radio"
+											name="selectedAddress" id="address1" th:value="${ad.id}">
+										<!-- or use addressId if available -->
+
+										<label class="form-check-label w-100" for="address1">
+											<p class="fs-5 fw-bold mb-1">Delivering to
+												[[${ad.firstName}]]</p>
+											<p class="m-0">[[${ad.address}]], [[${ad.city}]],
+												[[${ad.state}]]</p>
+											<p class="m-0">[[${ad.pincode}]], India</p>
+											<p>Phone number : [[${ad.mobileNo}]]</p>
+										</label>
+									</div>
+
+									<a
+										class="col d-flex justify-content-center align-items-center text-danger fw-bold text-decoration-none"
+										th:href="@{'/user/deleteAddress?aid=' + ${ad.id}}">delete</a>
+								</div>
+
+							</div>
+
+						</th:block>
+
+						<div>
+
+							<a th:href="@{order-address}" class="text-decoration-none">Add
+								Address</a>
+
+						</div>
+
+					</div>
+
+
+					<div class="col-md-6">
+						<p class="text-center fs-4">Payment Type</p>
+						<hr>
+						<div class="card">
+							<div class="card-body">
+								<table class="table table-borderless">
+									<tbody>
+										<tr>
+											<td>Total price</td>
+											<td>:</td>
+											<td>[[${totalPrice}]]</td>
+										</tr>
+										<tr>
+											<td>Delivery Fee</td>
+											<td>:</td>
+											<td>25</td>
+										</tr>
+
+										<tr>
+											<td>Tax</td>
+											<td>:</td>
+											<td>[[${gst}]]</td>
+										</tr>
+
+										<tr class="border-top">
+											<td>Total Price</td>
+											<td>:</td>
+											<td>[[${totalOrderPrice}]]</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<input type="hidden" name="totalOrderPrice"
+							th:value="${totalOrderPrice}" />
+
+
+						<div class="card shadow p-3 mb-5 mt-2 bg-body-tertiary rounded">
+
+							<div class="card-body">
+								<!-- <form action="/login" method="post"> -->
+								<div class="mb-3">
+									<label class="form-label">Select Payment Type</label> <select
+										required id="payment-field" name="paymentType"
+										class="form-control">
+										<option value="">--select--</option>
+										<option value="COD">Cash On Delivery</option>
+										<option value="ONLINE">Online Payment</option>
+									</select>
+
+								</div>
+
+								<button onclick="submitOrder(); paymentStart();"
+									id="placeOrderBtn" type="button"
+									class="btn bg-primary text-white col-md-12">Place
+									Order</button>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</form>
+		</div>
+
+	</section>
+</body>
+</html>

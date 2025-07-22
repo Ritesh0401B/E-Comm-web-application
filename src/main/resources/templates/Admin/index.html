@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base :: layout(~{:: section})}">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+</head>
+<body>
+
+	<section>
+
+		<div class="container" style="margin-top: 70px;">
+
+			<p class="fs-3 text-center">Admin Dashboard</p>
+
+			<div class="row">
+
+                <!-- 1st -->
+
+				<div class="col-md-4">
+
+					<a href="#" th:href="@{/admin/loadAddproduct}" class="text-decoration-none">
+
+						<div class="card card-sh">
+
+							<div class="card-body text-center text-primary">
+
+								<i class="fa-solid fa-square-plus fa-3x text-primary"></i>
+
+								<p class="fs-4 fw-bold">Add Product</p>
+
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+				
+				 <!-- 2nd -->
+
+				<div class="col-md-4">
+
+					<a href="#" th:href="@{/admin/category}" class="text-decoration-none">
+
+						<div class="card card-sh">
+
+							<div class="card-body text-center text-warning">
+
+								<i class="fa-solid fa-list fa-3x"></i>
+
+								<p class="fs-4 fw-bold">Add Category</p>
+
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+				
+				 <!-- 3rd -->
+
+				<div class="col-md-4">
+
+					<a href="#" th:href="@{/admin/view-product}" class="text-decoration-none">
+
+						<div class="card card-sh">
+
+							<div class="card-body text-center text-success">
+
+								<i class="fa-solid fa-mountain-sun fa-3x"></i>
+
+								<p class="fs-4 fw-bold">View Product</p>
+
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+				
+				<!-- 4th -->
+				
+				<div class="col-md-4">
+
+					<a th:href="@{/admin/view-user-orders}" class="text-decoration-none">
+
+						<div class="card card-sh">
+
+							<div class="card-body text-center text-success">
+
+								<i class="fa-solid fa-box-open fa-3x"></i>
+								
+								<p class="fs-4 fw-bold">Orders</p>
+
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+				
+				<!-- 5th -->
+				
+				<div class="col-md-4">
+
+					<a th:href="@{/admin/view-users}" class="text-decoration-none">
+
+						<div class="card card-sh">
+
+							<div class="card-body text-center text-warning">
+
+								<i class="fa-solid fa-user-tie fa-3x"></i>
+
+								<p class="fs-4 fw-bold">Users</p>
+
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+				
+				<!-- 6th -->
+				
+				<div class="col-md-4">
+
+					<a href="#" class="text-decoration-none">
+
+						<div class="card card-sh">
+
+							<div class="card-body text-center text-primary">
+
+								<i class="fa-solid fa-lock fa-3x"></i>
+
+								<p class="fs-4 fw-bold">Add Admin</p>
+
+							</div>
+
+						</div>
+
+					</a>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+</body>
+</html>
