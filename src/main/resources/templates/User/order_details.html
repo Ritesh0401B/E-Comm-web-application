@@ -45,33 +45,45 @@
 				</div>
 			</div>
 
-			<div class="container mt-5">
+			<th:block
+				th:if="${order.orderStatus != null and order.orderStatus.toLowerCase() == 'cancelled'}">
+				<div
+					class="bg-danger text-center text-white col-md-4 offset-md-4 p-1">
+					<p class="d-flex justify-content-center align-items-center">Order
+						Cancelled</p>
+				</div>
+			</th:block>
 
-				<div class="position-relative" style="margin-left: 15px;">
+			<th:block
+				th:unless="${order.orderStatus.toLowerCase() == 'Cancelled'}">
 
-					<div class="border-start border-3 border-secondary ps-3"
-						style="height: 90%; position: absolute; top: 10px; left: 8px; z-index: 1;"></div>
+				<div class="container mt-5">
 
-					<div th:each="s, stat : ${steps}"
-						class="mb-4 d-flex align-items-start">
-						<div class="me-3">
-							<div
-								th:classappend="${stat.index <= currentStep} ? 'bg-success' : 'bg-secondary'"
-								class="rounded-circle d-flex justify-content-center align-items-center"
-								style="width: 20px; height: 20px; color: white;">
-								<i class="fas fa-check"></i>
+					<div class="position-relative" style="margin-left: 15px;">
+
+						<div class="border-start border-3 border-secondary ps-3"
+							style="height: 90%; position: absolute; top: 10px; left: 8px; z-index: 1;"></div>
+
+						<div th:each="s, stat : ${steps}"
+							class="mb-4 d-flex align-items-start">
+							<div class="me-3">
+								<div
+									th:classappend="${stat.index <= currentStep} ? 'bg-success' : 'bg-secondary'"
+									class="rounded-circle d-flex justify-content-center align-items-center"
+									style="width: 20px; height: 20px; color: white;">
+									<i class="fas fa-check"></i>
+								</div>
+							</div>
+							<div>
+								<p class="m-0 fw-bold" th:text="${s.name}">Step Name</p>
+								<!-- <small th:if="${stat.index == currentStep}" class="text-muted">This
+								is your current step</small> -->
 							</div>
 						</div>
-						<div>
-							<p class="m-0 fw-bold" th:text="${s.name}">Step Name</p>
-							<!-- <small th:if="${stat.index == currentStep}" class="text-muted">This
-								is your current step</small> -->
-						</div>
+
 					</div>
-
 				</div>
-			</div>
-
+			</th:block>
 
 
 			<h4 class="mb-3">Ordered Items</h4>

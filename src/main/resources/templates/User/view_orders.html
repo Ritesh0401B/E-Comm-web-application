@@ -24,7 +24,8 @@
 				<div th:each="o : ${orders}" class="m-2">
 					<div th:each="op : ${o.orderedProducts}">
 
-						<a th:href="@{'/user/order-details?orderId=' + ${o.id} + '&productId=' + ${op.id}}"
+						<a
+							th:href="@{'/user/order-details?orderId=' + ${o.id} + '&productId=' + ${op.id}}"
 							class="text-decoration-none text-dark">
 
 							<div class="row align-items-center flex-column flex-md-row">
@@ -40,17 +41,20 @@
 
 								<div class="col col-md-8 ms-3">
 
-									<p class="fs-3 m-0"></p>
 
-									<p class="mb-1">Delivery expected soon</p>
+									<th:block th:if="${o.orderStatus == 'Cancelled'}">
+										<p class="mb-1 text-danger">Cancelled</p>
+									</th:block>
+
+									<th:block th:unless="${o.orderStatus == 'Cancelled'}">
+
+										<p class="mb-1">Delivery expected soon</p>
+									</th:block>
 
 									<p class="text-muted"
 										th:text="${#strings.abbreviate(op.product.description, 45)}"></p>
 
-									<!-- <p class="fs-5 text-muted">
-									<span
-										th:text="${#temporals.format(o.orderDate, 'dd-MM-yyyy hh:mm')}"></span>
-								</p> -->
+
 
 								</div>
 

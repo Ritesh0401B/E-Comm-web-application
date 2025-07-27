@@ -468,7 +468,7 @@ public class AdminController {
 
 		List<OrderStatus> step = OrderStatus.getTrackingOrders();
 
-		model.addAttribute("orders", allOrders);
+		model.addAttribute("orders", allOrders); 
 		model.addAttribute("step", step);
 
 		return "Admin/view_user_orders";
