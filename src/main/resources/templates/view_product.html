@@ -111,6 +111,39 @@
 								<a
 									th:href="@{'/user/add-cart?pid=' + ${p.id} + '&uid=' + ${user.id}}"
 									class="btn btn-danger col-md-12">Add To Cart</a>
+
+								<div class="rating mt-2">
+
+									<form th:action="@{'/user/product/' + ${p.id} + '/review'}"
+										method="post">
+										<label>Rating:</label> <select name="rating" required>
+											<option value="1">⭐</option>
+											<option value="2">⭐⭐</option>
+											<option value="3">⭐⭐⭐</option>
+											<option value="4">⭐⭐⭐⭐</option>
+											<option value="5">⭐⭐⭐⭐⭐</option>
+										</select><br>
+										<div class="mt-2">
+											<label>Comment:</label><br>
+											<textarea name="comment" rows="3" required></textarea>
+										</div>
+
+										<button type="submit">Submit Review</button>
+									</form>
+
+								</div>
+
+								<h4 class="mt-3">Reviews:</h4>
+								<div th:each="review : ${reviews}">
+									<p>
+										<strong th:text="${review.user.name}"></strong> - <span
+											th:text="${review.rating} + ' Stars'"></span><br /> <i
+											th:text="${review.comment}"></i>
+									</p>
+									<hr />
+								</div>
+
+
 							</th:block>
 
 						</th:block>
@@ -118,7 +151,6 @@
 						<th:block th:if="${p.stock == 0}">
 							<a href="" class="btn btn-warning col-md-12">Out Of Stock</a>
 						</th:block>
-
 
 
 					</div>

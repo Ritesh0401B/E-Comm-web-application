@@ -17,16 +17,14 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.ecommerce.dao.OrderAddress2Repository;
-import com.ecommerce.dao.OrderAddressRepository;
-import com.ecommerce.dao.OrderedProductRepository;
-import com.ecommerce.dao.UserRepository;
+import com.ecommerce.dao.*;
 import com.ecommerce.entities.Cart;
 import com.ecommerce.entities.Category;
 import com.ecommerce.entities.MyOrder;
@@ -34,12 +32,14 @@ import com.ecommerce.entities.OrderAddress;
 import com.ecommerce.entities.OrderAddress2;
 import com.ecommerce.entities.OrderedProduct;
 import com.ecommerce.entities.Product;
+import com.ecommerce.entities.Review;
 import com.ecommerce.entities.User;
 import com.ecommerce.services.CartService;
 import com.ecommerce.services.CategoryService;
 import com.ecommerce.services.MyOrderService;
 import com.ecommerce.services.OrderAddressService;
 import com.ecommerce.services.ProductService;
+import com.ecommerce.services.ReviewService;
 import com.ecommerce.services.UserService;
 import com.ecommerce.util.CommonUtil;
 import com.ecommerce.util.Message;
@@ -51,6 +51,10 @@ import com.razorpay.RazorpayException;
 @Controller
 @RequestMapping("/user")
 public class UserController /* ~~(Could not parse as Java)~~> */ {
+
+    private final ProductRepository productRepository;
+
+    private final UserRepository userRepository;
 
 	@Autowired
 	private OrderedProductRepository orderedProductRepository;
@@ -72,14 +76,19 @@ public class UserController /* ~~(Could not parse as Java)~~> */ {
 
 	@Autowired
 	private MyOrderService myOrderService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	@Autowired
 	private CommonUtil commonUtil;
 
 	private OrderAddress2Repository orderAddress2Repository;
 
-	UserController(OrderAddressRepository orderAddressRepository, OrderAddress2Repository orderAddress2Repository_1) {
-	}
+	UserController(OrderAddressRepository orderAddressRepository, OrderAddress2Repository orderAddress2Repository_1, UserRepository userRepository, ProductRepository productRepository) {
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+    }
 
 	@ModelAttribute
 	public void addCommonData(Model model, Principal principal) {
@@ -133,7 +142,7 @@ public class UserController /* ~~(Could not parse as Java)~~> */ {
 
 	@GetMapping("/view-cart")
 	public String viewCart(@RequestParam int uid, Model model) {
-		
+
 		model.addAttribute("title", "View Cart");
 
 //		System.out.println(uid);
@@ -203,26 +212,27 @@ public class UserController /* ~~(Could not parse as Java)~~> */ {
 
 		return "redirect:/user/view-cart?uid=" + id;
 	}
-	
+
 	@GetMapping("/delete-cart")
-	public String deleteCart(@RequestParam("cid") int cid, @RequestParam("q") int q, @RequestParam("pid") int pid, Principal p) {
-		
+	public String deleteCart(@RequestParam("cid") int cid, @RequestParam("q") int q, @RequestParam("pid") int pid,
+			Principal p) {
+
 		System.out.println(cid);
 		System.out.println(q);
 		System.out.println(pid);
-		
+
 		boolean deleteCartById = this.cartService.deleteCartById(cid);
-		
-		if(deleteCartById) {
+
+		if (deleteCartById) {
 			Product product = this.productService.getProductById(pid);
 			product.setStock(product.getStock() + q);
-			
+
 			this.productService.saveProduct(product);
 		}
-		
+
 		User user = this.userService.getUserByEmail(p.getName());
 		int id = user.getId();
-		
+
 		return "redirect:/user/view-cart?uid=" + id;
 	}
 
@@ -456,16 +466,15 @@ public class UserController /* ~~(Could not parse as Java)~~> */ {
 //		
 //		int currentStatusId = currentStatusEnum.getId();
 //		model.addAttribute("currentStatusId", currentStatusId);
-		
+
 		List<OrderStatus> trackingSteps = OrderStatus.getTrackingOrder();
 		int currentStep = OrderStatus.getStatusIndex(order.getOrderStatus());
 
 		model.addAttribute("product", op);
 		model.addAttribute("order", order);
-		
+
 		model.addAttribute("steps", trackingSteps);
 		model.addAttribute("currentStep", currentStep);
-
 
 		return "User/order_details";
 
@@ -508,6 +517,26 @@ public class UserController /* ~~(Could not parse as Java)~~> */ {
 		this.orderAddressService.deleteAddress(aid);
 
 		return "redirect:/user/orders";
+	}
+
+	@PostMapping("/product/{productId}/review")
+	public String submitReview(@PathVariable("productId") int pid, @RequestParam("rating") int rating,
+			@RequestParam("comment") String comment, Principal p) {
+		
+		
+		User user = this.userService.getUserByEmail(p.getName());
+		
+		Product product = this.productService.getProductById(pid);
+		
+		Review review = new Review();
+		review.setUser(user);
+		review.setProduct(product);
+		review.setRating(rating);
+		review.setComment(comment);
+		
+		this.reviewService.saveReview(review);
+		
+		return "redirect:/product/" + pid;
 	}
 
 }

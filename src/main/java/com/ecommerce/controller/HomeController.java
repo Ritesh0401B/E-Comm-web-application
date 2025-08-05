@@ -28,10 +28,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ecommerce.dao.UserRepository;
 import com.ecommerce.entities.Category;
 import com.ecommerce.entities.Product;
+import com.ecommerce.entities.Review;
 import com.ecommerce.entities.User;
 import com.ecommerce.services.CartService;
 import com.ecommerce.services.CategoryService;
 import com.ecommerce.services.ProductService;
+import com.ecommerce.services.ReviewService;
 import com.ecommerce.services.UserService;
 import com.ecommerce.util.CommonUtil;
 import com.ecommerce.util.Message;
@@ -60,6 +62,9 @@ public class HomeController /* ~~(Could not parse as Java)~~> */ {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	@Autowired
 	private CommonUtil commonUtil;
@@ -289,11 +294,18 @@ public class HomeController /* ~~(Could not parse as Java)~~> */ {
 		model.addAttribute("title", "Product");
 
 		Product productById = this.productService.getProductById(id);
+		
+		List<Review> reviews = this.reviewService.getReviewsByProduct(productById);
 
 		model.addAttribute("product", productById);
+		model.addAttribute("reviews", reviews);
 
 		return "view_product";
 
 	}
+	
+	
+	
+	
 
 }
